@@ -45,11 +45,11 @@ If the brief-mcp doesn't have the information you need:
 2. **Add to knowledge base** using `brief-mcp/add-knowledge`
 3. **Make reasonable assumptions** and document them
 
-### Integration with Spec Kit Commands
+### Integration with Brief Commands
 
-- `/speckit.specify` - Query brief-mcp for business context first
-- `/speckit.plan` - Query brief-mcp for architecture patterns first
-- `/speckit.implement` - Query brief-mcp for code conventions first
+- `/brief.specify` - Query brief-mcp for business context first
+- `/brief.plan` - Query brief-mcp for architecture patterns first
+- `/brief.implement` - Query brief-mcp for code conventions first
 - `/brief.context` - Explicit context check command
 
 ## MCP Tools Reference

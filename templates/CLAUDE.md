@@ -45,9 +45,9 @@ brief-mcp/delete-knowledge - Remove outdated context
 ### Commands Available
 
 - `/brief.context [task]` - Explicitly check context for a task
-- `/speckit.specify` - Create feature specification (auto-checks context)
-- `/speckit.plan` - Create implementation plan (auto-checks context)
-- `/speckit.implement` - Execute implementation (auto-checks context)
+- `/brief.specify` - Create feature specification (auto-checks context)
+- `/brief.plan` - Create implementation plan (auto-checks context)
+- `/brief.implement` - Execute implementation (auto-checks context)
 
 ### Example Context Check
 

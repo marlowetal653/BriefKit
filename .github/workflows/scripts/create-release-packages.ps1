@@ -3,11 +3,11 @@
 
 <#
 .SYNOPSIS
-    Build Spec Kit template release archives for each supported AI assistant and script type.
+    Build Brief template release archives for each supported AI assistant and script type.
 
 .DESCRIPTION
     create-release-packages.ps1 (workflow-local)
-    Build Spec Kit template release archives for each supported AI assistant and script type.
+    Build Brief template release archives for each supported AI assistant and script type.
     
 .PARAMETER Version
     Version string with leading 'v' (e.g., v0.2.0)
@@ -160,7 +160,7 @@ function Generate-Commands {
         $body = Rewrite-Paths -Content $body
         
         # Generate output file based on extension
-        $outputFile = Join-Path $OutputDir "speckit.$name.$Extension"
+        $outputFile = Join-Path $OutputDir "brief.$name.$Extension"
         
         switch ($Extension) {
             'toml' {
@@ -186,7 +186,7 @@ function Generate-CopilotPrompts {
     
     New-Item -ItemType Directory -Path $PromptsDir -Force | Out-Null
     
-    $agentFiles = Get-ChildItem -Path "$AgentsDir/speckit.*.agent.md" -File -ErrorAction SilentlyContinue
+    $agentFiles = Get-ChildItem -Path "$AgentsDir/brief.*.agent.md" -File -ErrorAction SilentlyContinue
     
     foreach ($agentFile in $agentFiles) {
         $basename = $agentFile.Name -replace '\.agent\.md$', ''
@@ -350,7 +350,7 @@ function Build-Variant {
     }
     
     # Create zip archive
-    $zipFile = Join-Path $GenReleasesDir "spec-kit-template-${Agent}-${Script}-${Version}.zip"
+    $zipFile = Join-Path $GenReleasesDir "brief-template-${Agent}-${Script}-${Version}.zip"
     Compress-Archive -Path "$baseDir/*" -DestinationPath $zipFile -Force
     Write-Host "Created $zipFile"
 }
@@ -419,6 +419,6 @@ foreach ($agent in $AgentList) {
 }
 
 Write-Host "`nArchives in ${GenReleasesDir}:"
-Get-ChildItem -Path $GenReleasesDir -Filter "spec-kit-template-*-${Version}.zip" | ForEach-Object {
+Get-ChildItem -Path $GenReleasesDir -Filter "brief-template-*-${Version}.zip" | ForEach-Object {
     Write-Host "  $($_.Name)"
 }

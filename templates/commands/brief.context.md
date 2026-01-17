@@ -66,9 +66,9 @@ This command **MUST** be invoked before any significant action to ensure you hav
 ## Integration with Other Commands
 
 This command should be automatically invoked before:
-- `/speckit.specify` - Need business context
-- `/speckit.plan` - Need architectural context
-- `/speckit.implement` - Need code patterns and conventions
+- `/brief.specify` - Need business context
+- `/brief.plan` - Need architectural context
+- `/brief.implement` - Need code patterns and conventions
 - Any code modification - Need existing patterns
 
 ## Example Usage

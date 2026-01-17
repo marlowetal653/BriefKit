@@ -9,7 +9,7 @@
 
 <p align="center">
     <a href="https://www.npmjs.com/package/brief-mcp"><img src="https://img.shields.io/npm/v/brief-mcp" alt="npm version"/></a>
-    <a href="https://github.com/marlowetal653/innovhack/blob/main/LICENSE"><img src="https://img.shields.io/github/license/marlowetal653/innovhack" alt="License"/></a>
+    <a href="https://github.com/marlowetal653/briefkit/blob/main/LICENSE"><img src="https://img.shields.io/github/license/marlowetal653/briefkit" alt="License"/></a>
 </p>
 
 ---
@@ -41,10 +41,10 @@ Before ANY significant action, the agent queries your knowledge base for:
 
 ```bash
 # Persistent installation (recommended)
-uv tool install brief-cli --from git+https://github.com/marlowetal653/innovhack.git
+uv tool install brief-cli --from git+https://github.com/marlowetal653/briefkit.git
 
 # Or one-time usage
-uvx --from git+https://github.com/marlowetal653/innovhack.git brief init .
+uvx --from git+https://github.com/marlowetal653/briefkit.git brief init .
 ```
 
 ### 2. Initialize your project
@@ -81,10 +81,10 @@ Add to your MCP config file:
 /brief.context I need to implement user authentication
 
 # Then proceed with spec-driven workflow
-/speckit.specify Build a user authentication system
-/speckit.plan Using JWT tokens with refresh mechanism
-/speckit.tasks
-/speckit.implement
+/brief.specify Build a user authentication system
+/brief.plan Using JWT tokens with refresh mechanism
+/brief.tasks
+/brief.implement
 ```
 
 ---
@@ -129,19 +129,19 @@ Brief MCP exposes 4 tools to your AI agent:
 | Command | Description |
 |---------|-------------|
 | `/brief.context` | Check context before any action (DO THIS FIRST) |
-| `/speckit.constitution` | Create project principles |
-| `/speckit.specify` | Define what to build |
-| `/speckit.plan` | Create technical plan |
-| `/speckit.tasks` | Break down into tasks |
-| `/speckit.implement` | Execute implementation |
+| `/brief.constitution` | Create project principles |
+| `/brief.specify` | Define what to build |
+| `/brief.plan` | Create technical plan |
+| `/brief.tasks` | Break down into tasks |
+| `/brief.implement` | Execute implementation |
 
 ### Optional Commands
 
 | Command | Description |
 |---------|-------------|
-| `/speckit.clarify` | Clarify requirements |
-| `/speckit.analyze` | Cross-artifact analysis |
-| `/speckit.checklist` | Generate quality checklists |
+| `/brief.clarify` | Clarify requirements |
+| `/brief.analyze` | Cross-artifact analysis |
+| `/brief.checklist` | Generate quality checklists |
 
 ---
 
@@ -244,7 +244,7 @@ The more context you add, the smarter your AI agent becomes.
 
 ## Credits
 
-- Based on [GitHub Spec Kit](https://github.com/github/spec-kit)
+- Based on [GitHub Brief](https://github.com/github/brief)
 - Built for Paris Innov Hackathon
 
 ## License
