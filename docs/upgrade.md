@@ -8,20 +8,20 @@
 
 | What to Upgrade | Command | When to Use |
 |----------------|---------|-------------|
-| **CLI Tool Only** | `uv tool install specify-cli --force --from git+https://github.com/github/brief.git` | Get latest CLI features without touching project files |
-| **Project Files** | `specify init --here --force --ai <your-agent>` | Update slash commands, templates, and scripts in your project |
+| **CLI Tool Only** | `uv tool install brief-cli --force --from git+https://github.com/github/brief.git` | Get latest CLI features without touching project files |
+| **Project Files** | `brief init --here --force --ai <your-agent>` | Update slash commands, templates, and scripts in your project |
 | **Both** | Run CLI upgrade, then project update | Recommended for major version updates |
 
 ---
 
 ## Part 1: Upgrade the CLI Tool
 
-The CLI tool (`specify`) is separate from your project files. Upgrade it to get the latest features and bug fixes.
+The CLI tool (`brief`) is separate from your project files. Upgrade it to get the latest features and bug fixes.
 
 ### If you installed with `uv tool install`
 
 ```bash
-uv tool install specify-cli --force --from git+https://github.com/github/brief.git
+uv tool install brief-cli --force --from git+https://github.com/github/brief.git
 ```
 
 ### If you use one-shot `uvx` commands
@@ -29,13 +29,13 @@ uv tool install specify-cli --force --from git+https://github.com/github/brief.g
 No upgrade needed—`uvx` always fetches the latest version. Just run your commands as normal:
 
 ```bash
-uvx --from git+https://github.com/github/brief.git specify init --here --ai copilot
+uvx --from git+https://github.com/github/brief.git brief init --here --ai copilot
 ```
 
 ### Verify the upgrade
 
 ```bash
-specify check
+brief check
 ```
 
 This shows installed tools and confirms the CLI is working.
@@ -48,12 +48,12 @@ When Brief releases new features (like new slash commands or updated templates),
 
 ### What gets updated?
 
-Running `specify init --here --force` will update:
+Running `brief init --here --force` will update:
 
 - ✅ **Slash command files** (`.claude/commands/`, `.github/prompts/`, etc.)
-- ✅ **Script files** (`.specify/scripts/`)
-- ✅ **Template files** (`.specify/templates/`)
-- ✅ **Shared memory files** (`.specify/memory/`) - **⚠️ See warnings below**
+- ✅ **Script files** (`.brief/scripts/`)
+- ✅ **Template files** (`.brief/templates/`)
+- ✅ **Shared memory files** (`.brief/memory/`) - **⚠️ See warnings below**
 
 ### What stays safe?
 
@@ -71,7 +71,7 @@ The `specs/` directory is completely excluded from template packages and will ne
 Run this inside your project directory:
 
 ```bash
-specify init --here --force --ai <your-agent>
+brief init --here --force --ai <your-agent>
 ```
 
 Replace `<your-agent>` with your AI assistant. Refer to this list of [Supported AI Agents](../README.md#-supported-ai-agents)
@@ -79,7 +79,7 @@ Replace `<your-agent>` with your AI assistant. Refer to this list of [Supported 
 **Example:**
 
 ```bash
-specify init --here --force --ai copilot
+brief init --here --force --ai copilot
 ```
 
 ### Understanding the `--force` flag
@@ -102,35 +102,35 @@ With `--force`, it skips the confirmation and proceeds immediately.
 
 ### 1. Constitution file will be overwritten
 
-**Known issue:** `specify init --here --force` currently overwrites `.specify/memory/constitution.md` with the default template, erasing any customizations you made.
+**Known issue:** `brief init --here --force` currently overwrites `.brief/memory/constitution.md` with the default template, erasing any customizations you made.
 
 **Workaround:**
 
 ```bash
 # 1. Back up your constitution before upgrading
-cp .specify/memory/constitution.md .specify/memory/constitution-backup.md
+cp .brief/memory/constitution.md .brief/memory/constitution-backup.md
 
 # 2. Run the upgrade
-specify init --here --force --ai copilot
+brief init --here --force --ai copilot
 
 # 3. Restore your customized constitution
-mv .specify/memory/constitution-backup.md .specify/memory/constitution.md
+mv .brief/memory/constitution-backup.md .brief/memory/constitution.md
 ```
 
 Or use git to restore it:
 
 ```bash
 # After upgrade, restore from git history
-git restore .specify/memory/constitution.md
+git restore .brief/memory/constitution.md
 ```
 
 ### 2. Custom template modifications
 
-If you customized any templates in `.specify/templates/`, the upgrade will overwrite them. Back them up first:
+If you customized any templates in `.brief/templates/`, the upgrade will overwrite them. Back them up first:
 
 ```bash
 # Back up custom templates
-cp -r .specify/templates .specify/templates-backup
+cp -r .brief/templates .brief/templates-backup
 
 # After upgrade, merge your changes back manually
 ```
@@ -165,30 +165,30 @@ Restart your IDE to refresh the command list.
 
 ```bash
 # Upgrade CLI (if using persistent install)
-uv tool install specify-cli --force --from git+https://github.com/github/brief.git
+uv tool install brief-cli --force --from git+https://github.com/github/brief.git
 
 # Update project files to get new commands
-specify init --here --force --ai copilot
+brief init --here --force --ai copilot
 
 # Restore your constitution if customized
-git restore .specify/memory/constitution.md
+git restore .brief/memory/constitution.md
 ```
 
 ### Scenario 2: "I customized templates and constitution"
 
 ```bash
 # 1. Back up customizations
-cp .specify/memory/constitution.md /tmp/constitution-backup.md
-cp -r .specify/templates /tmp/templates-backup
+cp .brief/memory/constitution.md /tmp/constitution-backup.md
+cp -r .brief/templates /tmp/templates-backup
 
 # 2. Upgrade CLI
-uv tool install specify-cli --force --from git+https://github.com/github/brief.git
+uv tool install brief-cli --force --from git+https://github.com/github/brief.git
 
 # 3. Update project
-specify init --here --force --ai copilot
+brief init --here --force --ai copilot
 
 # 4. Restore customizations
-mv /tmp/constitution-backup.md .specify/memory/constitution.md
+mv /tmp/constitution-backup.md .brief/memory/constitution.md
 # Manually merge template changes if needed
 ```
 
@@ -215,13 +215,13 @@ If you initialized your project with `--no-git`, you can still upgrade:
 
 ```bash
 # Manually back up files you customized
-cp .specify/memory/constitution.md /tmp/constitution-backup.md
+cp .brief/memory/constitution.md /tmp/constitution-backup.md
 
 # Run upgrade
-specify init --here --force --ai copilot --no-git
+brief init --here --force --ai copilot --no-git
 
 # Restore customizations
-mv /tmp/constitution-backup.md .specify/memory/constitution.md
+mv /tmp/constitution-backup.md .brief/memory/constitution.md
 ```
 
 The `--no-git` flag skips git initialization but doesn't affect file updates.
@@ -239,13 +239,13 @@ The `--no-git` flag tells Brief to **skip git repository initialization**. This 
 **During initial setup:**
 
 ```bash
-specify init my-project --ai copilot --no-git
+brief init my-project --ai copilot --no-git
 ```
 
 **During upgrade:**
 
 ```bash
-specify init --here --force --ai copilot --no-git
+brief init --here --force --ai copilot --no-git
 ```
 
 ### What `--no-git` does NOT do
@@ -303,10 +303,10 @@ This tells Brief which feature directory to use when creating specs, plans, and 
 
 ```bash
 # If you committed before upgrading
-git restore .specify/memory/constitution.md
+git restore .brief/memory/constitution.md
 
 # If you backed up manually
-cp /tmp/constitution-backup.md .specify/memory/constitution.md
+cp /tmp/constitution-backup.md .brief/memory/constitution.md
 ```
 
 **Prevention:** Always commit or back up `constitution.md` before upgrading.
@@ -323,20 +323,20 @@ Do you want to continue? [y/N]
 
 **What this means:**
 
-This warning appears when you run `specify init --here` (or `specify init .`) in a directory that already has files. It's telling you:
+This warning appears when you run `brief init --here` (or `brief init .`) in a directory that already has files. It's telling you:
 
 1. **The directory has existing content** - In the example, 25 files/folders
 2. **Files will be merged** - New template files will be added alongside your existing files
-3. **Some files may be overwritten** - If you already have Brief files (`.claude/`, `.specify/`, etc.), they'll be replaced with the new versions
+3. **Some files may be overwritten** - If you already have Brief files (`.claude/`, `.brief/`, etc.), they'll be replaced with the new versions
 
 **What gets overwritten:**
 
 Only Brief infrastructure files:
 
 - Agent command files (`.claude/commands/`, `.github/prompts/`, etc.)
-- Scripts in `.specify/scripts/`
-- Templates in `.specify/templates/`
-- Memory files in `.specify/memory/` (including constitution)
+- Scripts in `.brief/scripts/`
+- Templates in `.brief/templates/`
+- Memory files in `.brief/memory/` (including constitution)
 
 **What stays untouched:**
 
@@ -352,7 +352,7 @@ Only Brief infrastructure files:
 - **Use `--force` flag** - Skip this confirmation entirely:
 
   ```bash
-  specify init --here --force --ai copilot
+  brief init --here --force --ai copilot
   ```
 
 **When you see this warning:**
@@ -361,7 +361,7 @@ Only Brief infrastructure files:
 - ✅ **Expected** when adding Brief to an existing codebase
 - ⚠️ **Unexpected** if you thought you were creating a new project in an empty directory
 
-**Prevention tip:** Before upgrading, commit or back up your `.specify/memory/constitution.md` if you customized it.
+**Prevention tip:** Before upgrading, commit or back up your `.brief/memory/constitution.md` if you customized it.
 
 ### "CLI upgrade doesn't seem to work"
 
@@ -371,10 +371,10 @@ Verify the installation:
 # Check installed tools
 uv tool list
 
-# Should show specify-cli
+# Should show brief-cli
 
 # Verify path
-which specify
+which brief
 
 # Should point to the uv tool installation directory
 ```
@@ -382,23 +382,23 @@ which specify
 If not found, reinstall:
 
 ```bash
-uv tool uninstall specify-cli
-uv tool install specify-cli --from git+https://github.com/github/brief.git
+uv tool uninstall brief-cli
+uv tool install brief-cli --from git+https://github.com/github/brief.git
 ```
 
-### "Do I need to run specify every time I open my project?"
+### "Do I need to run brief every time I open my project?"
 
-**Short answer:** No, you only run `specify init` once per project (or when upgrading).
+**Short answer:** No, you only run `brief init` once per project (or when upgrading).
 
 **Explanation:**
 
-The `specify` CLI tool is used for:
+The `brief` CLI tool is used for:
 
-- **Initial setup:** `specify init` to bootstrap Brief in your project
-- **Upgrades:** `specify init --here --force` to update templates and commands
-- **Diagnostics:** `specify check` to verify tool installation
+- **Initial setup:** `brief init` to bootstrap Brief in your project
+- **Upgrades:** `brief init --here --force` to update templates and commands
+- **Diagnostics:** `brief check` to verify tool installation
 
-Once you've run `specify init`, the slash commands (like `/brief.specify`, `/brief.plan`, etc.) are **permanently installed** in your project's agent folder (`.claude/`, `.github/prompts/`, etc.). Your AI assistant reads these command files directly—no need to run `specify` again.
+Once you've run `brief init`, the slash commands (like `/brief.specify`, `/brief.plan`, etc.) are **permanently installed** in your project's agent folder (`.claude/`, `.github/prompts/`, etc.). Your AI assistant reads these command files directly—no need to run `brief` again.
 
 **If your agent isn't recognizing slash commands:**
 
@@ -414,11 +414,11 @@ Once you've run `specify init`, the slash commands (like `/brief.specify`, `/bri
 
 2. **Restart your IDE/editor completely** (not just reload window)
 
-3. **Check you're in the correct directory** where you ran `specify init`
+3. **Check you're in the correct directory** where you ran `brief init`
 
 4. **For some agents**, you may need to reload the workspace or clear cache
 
-**Related issue:** If Copilot can't open local files or uses PowerShell commands unexpectedly, this is typically an IDE context issue, not related to `specify`. Try:
+**Related issue:** If Copilot can't open local files or uses PowerShell commands unexpectedly, this is typically an IDE context issue, not related to `brief`. Try:
 
 - Restarting VS Code
 - Checking file permissions

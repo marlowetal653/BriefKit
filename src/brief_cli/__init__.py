@@ -10,18 +10,18 @@
 # ]
 # ///
 """
-Specify CLI - Setup tool for Specify projects
+Brief CLI - Setup tool for Brief projects
 
 Usage:
-    uvx specify-cli.py init <project-name>
-    uvx specify-cli.py init .
-    uvx specify-cli.py init --here
+    uvx brief-cli.py init <project-name>
+    uvx brief-cli.py init .
+    uvx brief-cli.py init --here
 
 Or install globally:
-    uv tool install --from specify-cli.py specify-cli
-    specify init <project-name>
-    specify init .
-    specify init --here
+    uv tool install --from brief-cli.py brief-cli
+    brief init <project-name>
+    brief init .
+    brief init --here
 """
 
 import os
@@ -549,7 +549,7 @@ def init_git_repo(project_path: Path, quiet: bool = False) -> Tuple[bool, Option
             console.print("[cyan]Initializing git repository...[/cyan]")
         subprocess.run(["git", "init"], check=True, capture_output=True, text=True)
         subprocess.run(["git", "add", "."], check=True, capture_output=True, text=True)
-        subprocess.run(["git", "commit", "-m", "Initial commit from Specify template"], check=True, capture_output=True, text=True)
+        subprocess.run(["git", "commit", "-m", "Initial commit from Brief template"], check=True, capture_output=True, text=True)
         if not quiet:
             console.print("[green]✓[/green] Git repository initialized")
         return True, None
@@ -899,7 +899,7 @@ def download_and_extract_template(project_path: Path, ai_assistant: str, script_
 
 
 def ensure_executable_scripts(project_path: Path, tracker: StepTracker | None = None) -> None:
-    """Ensure POSIX .sh scripts under .specify/scripts (recursively) have execute bits (no-op on Windows)."""
+    """Ensure POSIX .sh scripts under .brief/scripts (recursively) have execute bits (no-op on Windows)."""
     if os.name == "nt":
         return  # Windows: skip silently
     scripts_root = project_path / ".specify" / "scripts"
@@ -956,7 +956,7 @@ def init(
     github_token: str = typer.Option(None, "--github-token", help="GitHub token to use for API requests (or set GH_TOKEN or GITHUB_TOKEN environment variable)"),
 ):
     """
-    Initialize a new Specify project from the latest template.
+    Initialize a new Brief project from the latest template.
     
     This command will:
     1. Check that required tools are installed (git is optional)
@@ -967,17 +967,17 @@ def init(
     6. Optionally set up AI assistant commands
     
     Examples:
-        specify init my-project
-        specify init my-project --ai claude
-        specify init my-project --ai copilot --no-git
-        specify init --ignore-agent-tools my-project
-        specify init . --ai claude         # Initialize in current directory
-        specify init .                     # Initialize in current directory (interactive AI selection)
-        specify init --here --ai claude    # Alternative syntax for current directory
-        specify init --here --ai codex
-        specify init --here --ai codebuddy
-        specify init --here
-        specify init --here --force  # Skip confirmation when current directory not empty
+        brief init my-project
+        brief init my-project --ai claude
+        brief init my-project --ai copilot --no-git
+        brief init --ignore-agent-tools my-project
+        brief init . --ai claude         # Initialize in current directory
+        brief init .                     # Initialize in current directory (interactive AI selection)
+        brief init --here --ai claude    # Alternative syntax for current directory
+        brief init --here --ai codex
+        brief init --here --ai codebuddy
+        brief init --here
+        brief init --here --force  # Skip confirmation when current directory not empty
     """
 
     show_banner()
@@ -1026,7 +1026,7 @@ def init(
     current_dir = Path.cwd()
 
     setup_lines = [
-        "[cyan]Specify Project Setup[/cyan]",
+        "[cyan]Brief Project Setup[/cyan]",
         "",
         f"{'Project':<15} [green]{project_path.name}[/green]",
         f"{'Working Path':<15} [dim]{current_dir}[/dim]",
@@ -1091,9 +1091,9 @@ def init(
     console.print(f"[cyan]Selected AI assistant:[/cyan] {selected_ai}")
     console.print(f"[cyan]Selected script type:[/cyan] {selected_script}")
 
-    tracker = StepTracker("Initialize Specify Project")
+    tracker = StepTracker("Initialize Brief Project")
 
-    sys._specify_tracker_active = True
+    sys._brief_tracker_active = True
 
     tracker.add("precheck", "Check required tools")
     tracker.complete("precheck", "ok")
@@ -1354,7 +1354,7 @@ def check():
 
     console.print(tracker.render())
 
-    console.print("\n[bold green]Specify CLI is ready to use![/bold green]")
+    console.print("\n[bold green]Brief CLI is ready to use![/bold green]")
 
     if not git_ok:
         console.print("[dim]Tip: Install git for repository management[/dim]")

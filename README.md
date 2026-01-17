@@ -188,7 +188,7 @@ brief version               # Show version info
 After `brief init`, your project contains:
 
 ```
-.specify/
+.brief/
 ├── memory/
 │   └── constitution.md      # Project principles
 ├── specs/
